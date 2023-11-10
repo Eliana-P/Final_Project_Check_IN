@@ -26,17 +26,18 @@ def playerHealth(damage, healthstatus):
     elif healthstatus - damage >= 20:
         return "Emergency health"
 
-
-
-
-def winner(self, playerHealth, computerHealth):
-    """Compares the players health to the computer's helth to determine the winner."
+def winner(playerHealth, computerHealth):
+    """Returns the winner of the game.
+    
+    Returns: 
+        Returns a string stating that computer won. 
+        Returns a string stating that player won. 
     """
-    if playerHealth == None:
-        if computerHealth == True:
+    if playerHealth == 0:
+        if computerHealth > 0:
             return "Computer won!"
-    if computerHealth == None:
-        if playerHealth == True:
+    if computerHealth == 0:
+        if playerHealth > 0:
             return "Player won!"
 
 def monster():
