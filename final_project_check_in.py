@@ -75,3 +75,24 @@ def monster():
     """
     m_damage = random.randint(5,50)
     return m_damage
+
+def human_player_move(data):
+    """Asks the human player to make their next move.
+
+    Args:
+        data (list of str): tracks game progress.
+
+    Raises:
+        ValueError: player's input does not match an item in the move_options 
+            list.
+
+    Returns:
+        move (str): the player's move.
+    """
+    move = input(f"{name}, select your next move: {move_options}")
+    if move in move_options:
+        return move
+    else:
+        raise ValueError("you must select a valid move")
+
+
