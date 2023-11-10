@@ -25,9 +25,36 @@ def playerHealth(damage, healthstatus):
         return "Low health"
     elif healthstatus - damage >= 20:
         return "Emergency health"
+    
+def computerHealth(damage, healthstatus):
+    """Looks at the computer's health status and how much damage they have taken. Computer starts at 100
+    
+    Attributes:
+    damage(int): the level of damage the computer has
+    healthstatus(int): the health status of the computer with/without damage
+    
+    Returns:
+    a string identifying the health level
+    
+    """
+
+    if healthstatus == 100:
+        return "Perfect health!"
+    elif healthstatus - damage >= 80:
+        return "Great health!"
+    elif healthstatus - damage >= 70:
+        return "Decent Health"
+    elif healthstatus - damage >= 50:
+        return "Average health"
+    elif healthstatus - damage >= 30:
+        return "Low health"
+    elif healthstatus - damage >= 20:
+        return "Emergency health"
+    elif healthstatus - damage == 0:
+        return "No health"
 
 def winner(playerHealth, computerHealth):
-    """Returns the winner of the game.
+    """Returns the winner of the game based on health.
     
     Returns: 
         Returns a string stating that computer won. 
