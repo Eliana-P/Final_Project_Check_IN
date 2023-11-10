@@ -1,3 +1,5 @@
+import random
+
 """survival game"""
 def playerHealth(damage, healthstatus):
     """Looks at the user's health status and how much damage they have taken. Player starts at 100
@@ -36,3 +38,12 @@ def winner(self, playerHealth, computerHealth):
     if computerHealth == None:
         if playerHealth == True:
             return "Player won!"
+
+def monster():
+    """An attack by a monster
+    
+    Returns:
+        damage (int): the damage that has been recieved by the monster
+    """
+    m_damage = random.randint(5,50)
+    return m_damage
