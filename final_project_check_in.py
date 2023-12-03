@@ -76,28 +76,10 @@ def monster():
     m_damage = random.randint(5,50)
     return m_damage
 
-def human_player_move(data):
-    """Asks the human player to make their next move.
-
-    Args:
-        data (list of str): tracks game progress.
-
-    Raises:
-        ValueError: player's input does not match an item in the move_options 
-            list.
-
-    Returns:
-        move (str): the player's move.
-    """
-    move = input(f"{name}, select your next move: {move_options}")
-    if move in move_options:
-        return move
-    else:
-        raise ValueError("you must select a valid move")
 
 class HumanPlayer:
-    def __init__(self, human_name):
-        self.name = human_name
+    def __init__(self, name):
+        self.name = name
         
         
     def move(self, data):
@@ -123,12 +105,9 @@ class HumanPlayer:
             raise ValueError("you must select a valid move")
 
 
-class ComputerPlayer:
-    def __init__(self, computer_name, options):
-        self.name = computer_name
-        self.options = options
-        
+class ComputerPlayer (HumanPlayer):   
     def move(self, data):
         self.data = data
         computer_player_move = random.choice(self.options)
         return computer_player_move
+        super().move(data)
