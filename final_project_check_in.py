@@ -1,3 +1,4 @@
+import argparse
 import random
 
 """survival game"""
@@ -153,8 +154,10 @@ class HorrorGame():
             print(who_won)
 
 if __name__ == "__main__":
-    #change this to argparse and import ArgumentParser so the user can input player and computer name
-    #for now, this is a placeholder
-    game = Game("User", "Computer")
+    parser = argparse.ArgumentParser(description = "A Horror Game")
+    parser.add_argument("--player", help = "Name of the human player", required = True)
+    parser.add_argument("--computer", help = "Name of the computer player", default = "Computer Player")
+    
+    args = parser.parse_args()
+    game = HorrorGame(args.player, args.computer)
     game.run()
-    game = HorrorGame("")
