@@ -95,4 +95,40 @@ def human_player_move(data):
     else:
         raise ValueError("you must select a valid move")
 
+class HumanPlayer:
+    def __init__(self, human_name):
+        self.name = human_name
+        
+        
+    def move(self, data):
+        """Asks the human player to make their next move.
 
+        Args:
+            data (list of str): tracks game progress.
+
+        Raises:
+            ValueError: player's input does not match an item in the move_options 
+                list.
+
+        Returns:
+            move (str): the player's move.
+        """
+        self.data = data
+        print(data)
+        human_player_move = input(f"Will you {self.option1} or {self.option2}?")
+        
+        if human_player_move in self.options:
+            return human_player_move
+        else:
+            raise ValueError("you must select a valid move")
+
+
+class ComputerPlayer:
+    def __init__(self, computer_name, options):
+        self.name = computer_name
+        self.options = options
+        
+    def move(self, data):
+        self.data = data
+        computer_player_move = random.choice(self.options)
+        return computer_player_move
