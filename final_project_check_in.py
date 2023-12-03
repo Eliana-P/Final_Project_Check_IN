@@ -132,9 +132,21 @@ class HorrorGame():
                 self.level_2()
         
         self.the_winner()
-    #this needs to be written
+    
     def level_1(self):
-        pass
+        # might not access the values I thought it would
+        print("This is Level 1, {self.human_player.name} vs the {self.computer_player.name}")
+        while self.human_health > 0 and self.computer_health > 0:
+            self.human.move()
+            self.computer.move()
+        # conditional expression
+        self.game_over = True if self.human_health <= 0 or self.computer_health <= 0 else False
+        if self.game_over is True:
+            print("The game ended, one the players did not survive")
+            break
+
+        #this conditional expressionmight not work, rewrite potentially
+        self.level = 2 if self.human_health > 0 and self.computer_health > 0 else self.level
 
     #make sure to incorporate the monster method if the user makes it to level2
     def level_2(self):
