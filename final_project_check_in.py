@@ -111,3 +111,8 @@ class ComputerPlayer (HumanPlayer):
         computer_player_move = random.choice(self.options)
         return computer_player_move
         super().move(data)
+
+class SawGame():
+    def __init__(self, human_name, computer_name):
+        self.human_player = 
+        self.computer_player = 
