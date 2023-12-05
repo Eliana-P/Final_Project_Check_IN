@@ -199,16 +199,28 @@ class HorrorGame():
 
     #if the human attacks computer, print computer health, if the human defends, print that we defended
     def human_move(self):
-        pass
+         move = self.human_player_move
+        if move == "attack":
+            print (computerHealth)
+        else:
+            print ("Player defended")
+            
+# will make human_move and computer_move more complex 
 
     #if the computer attacks human, print human health and if the computer defends, print that it defended
     def computer_move():
-        pass
+         move = self.computer_player_move
+        if move =="attack":
+            print (playerHealth)
+        else:
+            print ("Comptuer defended")
 
     def the_winner(self):
         who_won = winner(self.human_health, self.computer_health)
-        if who_won:
-            print(who_won)
+
+    def __str__(self):
+        winner = (f" the winner is {self.who_won}")
+        print (winner) #magic method
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description = "A Horror Game")
