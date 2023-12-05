@@ -119,13 +119,40 @@ class HorrorGame():
         self.game_over = False
     
     def run(self):
-        #I'm going to leave basic print statements for the text, narration part of the game
-        #Can someone please change these to match the story lore
+        print("\n\nS A W  0\n\n")
+        print("Hello. Do you wanna play a game?")
+        start_game = input("Enter 'y' to start a new game, 'n' to exit.")
+        if start_game == "n":
+            exit()
+        if start_game != "n" or "y":
+            raise ValueError("you must select a valid option")
+        
+        # Narration for the beginning of the story and level 1 
+        # Need more narration for level 2
+        # This is a lot of narration tho.. we could make it optional for time purposes when presenting 
+        print("..........")
+        print("You wake up in a dark room, slumped against a bathtub.")
+        print("You wince as you notice a dull pain in your head, your hand becoming sticky with what you can assume is blood as you touch your left temple.")
+        print("You don't remember how you arrived here.")
+        print("You hear movement to your left and turn your head, eyes straining to adjust to the darkness.")
+        print("You vaguely make out a man, sprawled out on the tile next to you.")
+        print("He slowly sits up, before he notices you.")
+        print("'Who are you? Where am I', he asks.")
+        print("'I could ask you the same question. I woke up just a moment ago,' you reply.")
+        print("Before the man can respond, you notice that there is something inside of your pocket.")
+        print("Inside, you find a tape recorder.")
+        print("You hesitantly press 'play', before a distorted voice fills your ears.")
+        f"Hello {human_name}. You must be wondering where you are. I would not focus on such trivial details."
+        print("What really matters is why you are here. Perhaps you will learn the rest if you live.")
+        f"You and {computer_name} have both lived a life of dishonor and this is your reckoning."
+        print("Only one of you will survive today. Will you turn on each other now or make feeble attempts to cling to your humanity, I wonder.....")
+        f"The recording ends and before either you or {computer_name} speaks, something emerges from the darkness in the far corner of the room."
+        print("You vaguely make out the silhoutte of what appears to be half man, half beast. Its head is that of a pig's, and it emits a terrible odor.")
+        print("Before you can react, it lets out a terrible shriek and runs toward you, raising the blade that it holds in its hand.")
+        # Level 1 battle begins
 
-        print("Welcome to this Survival Game")
-        print("You wake up in a dark, locked room...")
-
-        while not self.game_over:
+       
+        while not self.game_over:0 
             if self.level == 1:
                 self.level_1()
             if self.level == 2:
@@ -162,8 +189,6 @@ class HorrorGame():
                 print("Game over")
             if self.computer_health==0 and self.game_over is True:
                 print("Good job! Continue onto next level")
-        
-        
         #Notes:    
         #Use f strings
         #human vs the monster
@@ -171,7 +196,6 @@ class HorrorGame():
         #keep generating the monster damage
         #
         
-        pass
 
     #if the human attacks computer, print computer health, if the human defends, print that we defended
     def human_move(self):
