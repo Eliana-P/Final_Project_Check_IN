@@ -2,6 +2,7 @@ import argparse
 import random
 
 """survival game"""
+'''
 def playerHealth(damage, healthstatus):
     """Looks at the user's health status and how much damage they have taken. Player starts at 100
     
@@ -54,6 +55,7 @@ def computerHealth(damage, healthstatus):
     elif healthstatus - damage == 0:
         return "No health"
 
+
 def winner(playerHealth, computerHealth):
     """Returns the winner of the game based on health.
     Returns: 
@@ -75,158 +77,124 @@ def monster():
     """
     m_damage = random.randint(5,50)
     return m_damage
-
+'''
 
 class HumanPlayer:
-    def __init__(self, name, choice):
+    def __init__(self, name, options):
         self.name = name
-        self.choice = choice
+        self.options = options
+        self.health = 100
         
-    def move(self, data):
+    def move(self):
         """Asks the human player to make their next move.
-        Args:
-            data (list of str): tracks game progress.
+        
         Raises:
-            ValueError: player's input does not match an item in the move_options 
-                list.
+            
         Returns:
-            move (str): the player's move.
+
         """
-        self.data = data
-        print(data)
-        human_player_move = input(f"{self.name}, select a move: {self.choice}")
-        
-        if human_player_move in self.options:
-            return human_player_move
-        else:
-            raise ValueError("you must select a valid move")
+        return input(f"{self.name}, select your next move: {self.options}: ")
 
-class ComputerPlayer (HumanPlayer):   
-    def move(self, data):
-        self.data = data
-        computer_player_move = random.choice(self.options)
-        return computer_player_move
-        # VS Code tells me this is unreachable, I don't know if that's true but can someone check
-        super().move(data)
+class ComputerPlayer(HumanPlayer):
+    def __init__(self, name, options):
+        super().__init__(name, options) # this super should work
         
-class HorrorGame():
+class HorrorGame:
     def __init__(self, human_name, computer_name):
-        self.human_player = HumanPlayer(human_name, ["attack", "defend yourself"])
-        self.computer_player = ComputerPlayer(computer_name, ["attack", "defend yourself"])
+        self.human_player = HumanPlayer(human_name, ["attack", "defend", "tape"])
+        self.computer_player = ComputerPlayer(computer_name, ["attack", "defend", "tape"])
         self.level = 1
-        self.human_health = 100
-        self.computer_health = 100
-        self.game_over = False
-    
+        self.opponent_health = 100
+        self.game_over = False  # controls game loop
+
     def run(self):
-        print("\n\nS A W  0\n\n")
-        print("Hello. Do you wanna play a game?")
-        start_game = input("Enter 'y' to start a new game, 'n' to exit.")
-        if start_game == "n":
-            exit()
-        if start_game != "n" or "y":
-            raise ValueError("you must select a valid option")
+        print("Welcome to the Horror Survival Game!")
+        print("You find yourself in a dark room. Your goal is to survive the challenges and find the tape recorder.")
         
-        # Narration for the beginning of the story and level 1 
-        # Need more narration for level 2
-        # This is a lot of narration tho.. we could make it optional for time purposes when presenting 
-        print("..........")
-        print("You wake up in a dark room, slumped against a bathtub.")
-        print("You wince as you notice a dull pain in your head, your hand becoming sticky with what you can assume is blood as you touch your left temple.")
-        print("You don't remember how you arrived here.")
-        print("You hear movement to your left and turn your head, eyes straining to adjust to the darkness.")
-        print("You vaguely make out a man, sprawled out on the tile next to you.")
-        print("He slowly sits up, before he notices you.")
-        print("'Who are you? Where am I', he asks.")
-        print("'I could ask you the same question. I woke up just a moment ago,' you reply.")
-        print("Before the man can respond, you notice that there is something inside of your pocket.")
-        print("Inside, you find a tape recorder.")
-        print("You hesitantly press 'play', before a distorted voice fills your ears.")
-        f"Hello {human_name}. You must be wondering where you are. I would not focus on such trivial details."
-        print("What really matters is why you are here. Perhaps you will learn the rest if you live.")
-        f"You and {computer_name} have both lived a life of dishonor and this is your reckoning."
-        print("Only one of you will survive today. Will you turn on each other now or make feeble attempts to cling to your humanity, I wonder.....")
-        f"The recording ends and before either you or {computer_name} speaks, something emerges from the darkness in the far corner of the room."
-        print("You vaguely make out the silhoutte of what appears to be half man, half beast. Its head is that of a pig's, and it emits a terrible odor.")
-        print("Before you can react, it lets out a terrible shriek and runs toward you, raising the blade that it holds in its hand.")
-        # Level 1 battle begins
-
-       
-        while not self.game_over:0 
+        while not self.game_over:
             if self.level == 1:
-                self.level_1()
-            if self.level == 2:
-                self.level_2()
-        
-        self.the_winner()
-    
-    def level_1(self):
-        # might not access the values I thought it would
-        print("This is Level 1, {self.human_player.name} vs the {self.computer_player.name}")
-        while self.human_health > 0 and self.computer_health > 0:
-            self.human.move()
-            self.computer.move()
-        # conditional expression
-        self.game_over = True if self.human_health <= 0 or self.computer_health <= 0 else False
-        if self.game_over is True:
-            print("The game ended, one the players did not survive")
-            break
+                self.run_level_1()
+            elif self.level == 2:
+                self.run_level_2()
 
-        #this conditional expressionmight not work, rewrite potentially
-        self.level = 2 if self.human_health > 0 and self.computer_health > 0 else self.level
+        play_again = input("Would you like to play again? [y/n]: ")
+        if play_again.lower() == "y":
+            self.reset_game()
+            self.run()
 
-    #make sure to incorporate the monster method if the user makes it to level2
-    def level_2(self)
-        print("Welcome to level 2!")
-        while self.human_player > 0 and self.computer_health >0:
-            self.human_player_move()
-            self.computer.move()
-            
-            m_damage=monster()
-            self.human_health=self.human_health-m_damage
-            print(f"An attack by a monster! Your current health status remains at: {playerHealth}")
-            if self.human_health ==0 and self.game_over is True:
-                print("Game over")
-            if self.computer_health==0 and self.game_over is True:
-                print("Good job! Continue onto next level")
-        #Notes:    
-        #Use f strings
-        #human vs the monster
-        #while human_health >0 then the human will keep moving
-        #keep generating the monster damage
-        #
-        
+    def run_level_1(self):
+        human_move = self.human_player.move()
+        computer_move = random.choice(self.computer_player.options)
 
-    #if the human attacks computer, print computer health, if the human defends, print that we defended
-    def human_move(self):
-         move = self.human_player_move
-        if move == "attack":
-            print (computerHealth)
-        else:
-            print ("Player defended")
-            
-# will make human_move and computer_move more complex 
+        self.handle_move(self.human_player, human_move, self.computer_player, computer_move)
+        self.handle_move(self.computer_player, computer_move, self.human_player, human_move)
 
-    #if the computer attacks human, print human health and if the computer defends, print that it defended
-    def computer_move():
-         move = self.computer_player_move
-        if move =="attack":
-            print (playerHealth)
-        else:
-            print ("Comptuer defended")
+        if self.winner():
+            self.game_over = True
 
-    def the_winner(self):
-        who_won = winner(self.human_health, self.computer_health)
+    def run_level_2(self):
+        monster_move = random.choice(self.computer_player.options)
+        human_move = self.human_player.move()
 
-    def __str__(self):
-        winner = (f" the winner is {self.who_won}")
-        print (winner) #magic method
+        self.handle_move(self.human_player, human_move, self.computer_player, monster_move)
+        self.handle_move(self.computer_player, monster_move, self.human_player, human_move)
+
+        if self.winner():
+            self.game_over = True
+
+    def winner(self):
+        if self.human_player.health <= 0:
+            print(f"Game Over! {self.computer_player.name} wins! {self.human_player.name} loses!")
+            return True
+        elif self.opponent_health <= 0:
+            if self.level == 1:
+                self.level += 1
+                self.opponent_health = 100
+                print(f"{self.human_player.name} found the tape recorder and advances to Level 2!")
+            elif self.level == 2:
+                print(f"Congratulations! {self.human_player.name} wins the game!")
+            return True
+        elif self.computer_player.options[-1] == "tape" and random.random() < 0.05:
+            print(f"{self.computer_player.name} found the tape recorder! {self.human_player.name} loses!")
+            return True
+        return False
+
+    def handle_move(self, attacker, attacker_move, defender, defender_move):
+        damage = random.randint(10, 20)
+
+        if attacker_move == "attack":
+            print(f"{attacker.name} attacked!")
+            if defender_move == "defend":
+                print(f"{defender.name} was looking for the tape!")
+            elif defender_move == "tape":
+                print(f"{defender.name} defended!")
+            defender.health -= damage
+        elif attacker_move == "defend":
+            print(f"{attacker.name} defended!")
+            if defender_move == "attack":
+                print(f"{defender.name} was looking for the tape!")
+            elif defender_move == "tape":
+                print(f"{defender.name} attacked!")
+        elif attacker_move == "tape":
+            print(f"{attacker.name} found the tape recorder!")
+
+        print(f"{self.human_player.name}'s health: {self.human_player.health}")
+        print(f"{self.computer_player.name}'s health: {self.opponent_health}")
+
+    def reset_game(self):
+        self.level = 1
+        self.opponent_health = 100
+        self.game_over = False
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description = "A Horror Game")
-    parser.add_argument("--player", help = "Name of the human player", required = True)
-    parser.add_argument("--computer", help = "Name of the computer player", default = "Computer Player")
-    
+    parser = argparse.ArgumentParser(description="Horror Survival Game")
+    parser.add_argument("--player", type=str, help="Name of the human player")
+    parser.add_argument("--computer", type=str, help="Name of the computer player")
+
     args = parser.parse_args()
-    game = HorrorGame(args.player, args.computer)
-    game.run()
+
+    if args.player and args.computer:
+        game = HorrorGame(args.player, args.computer)
+        game.run()
+    else:
+        print("Please provide names for both players using --player and --computer.")
