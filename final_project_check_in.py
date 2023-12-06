@@ -101,13 +101,6 @@ class HumanPlayer:
         else:
             raise ValueError("you must select a valid move")
 
-    def danger_alert_human(self):
-        self.danger = danger
-        danger = min(playerHealth, key=lambda d: d.healthstatus)
-        return ("your health is in danger") 
-        # if the players health status hit the minimum level it alerts the player, just an idea as a way to use key function
-        
-
 class ComputerPlayer (HumanPlayer):   
     def move(self, data):
         self.data = data
@@ -115,13 +108,7 @@ class ComputerPlayer (HumanPlayer):
         return computer_player_move
         # VS Code tells me this is unreachable, I don't know if that's true but can someone check
         super().move(data)
-
-    def danger_alert_computer(self):
-        self.danger = danger
-        danger = min(computerHealth, key=lambda d: d.healthstatus)
-        return ("your health is in danger") 
-        # if the computers health status hit the minimum level it alerts the computer, just an idea as a way to use key function
-        # might not be necessary to alert the computer so this could might not be needed 
+        
 class HorrorGame():
     def __init__(self, human_name, computer_name):
         self.human_player = HumanPlayer(human_name, ["attack", "defend yourself"])
