@@ -189,8 +189,8 @@ class HorrorGame():
         self.level = 2 if self.human_health > 0 and self.computer_health > 0 else self.level
 
     #make sure to incorporate the monster method if the user makes it to level2
-    def level_2(self):
-        print("Welcome to level 2!")
+    def level_2(self, level2greeting="Welcome to level 2!"):
+        print(level2greeting)
         while self.human_player > 0 and self.computer_health >0:
             self.human_player_move()
             self.computer.move()
