@@ -71,7 +71,7 @@ class HorrorGame:
 
     def winner(self):
         if self.human_player.health <= 0:
-            print(f"Game Over! {self.computer_player.name} wins! {self.human_player.name} loses!")  #added the str method and print winner status also changed all opponent health to computer_player.health 
+            print(f"Game Over! {self.computer_player.name} wins! {self.human_player.name} loses!")  
             print("Winners stats:")
             print(str(self.computer_player))
             return True
