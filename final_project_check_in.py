@@ -40,34 +40,34 @@ class HorrorGame:
         
         while not self.game_over:
             if self.level == 1:
-                self.run_level_1()
+                self.level_1()
             elif self.level == 2:
-                self.run_level_2()
+                self.level_2()
 
         play_again = input("Would you like to play again? [y/n]: ")
         if play_again.lower() == "y":
             self.reset_game()
             self.run()
 
-    def run_level_1(self):
+    def level_1(self):
         human_move = self.human_player.move()
         computer_move = random.choice(self.computer_player.options)
 
         self.handle_move(self.human_player, human_move, self.computer_player, computer_move)
         self.handle_move(self.computer_player, computer_move, self.human_player, human_move)
 
-        if self.winner():
-            self.game_over = True
+        self.game_over = True if self.winner() else False
 
-    def run_level_2(self):
+
+    def level_2(self):
         monster_move = random.choice(self.computer_player.options)
         human_move = self.human_player.move()
 
         self.handle_move(self.human_player, human_move, self.computer_player, monster_move)
         self.handle_move(self.computer_player, monster_move, self.human_player, human_move)
 
-        if self.winner():
-            self.game_over = True
+        self.game_over = True if self.winner() else False
+
 
     def winner(self):
         if self.human_player.health <= 0:
