@@ -1,89 +1,17 @@
 import argparse
 import random
 
-"""survival game"""
-'''
-def playerHealth(damage, healthstatus):
-    """Looks at the user's health status and how much damage they have taken. Player starts at 100
-    
-    Attributes:
-    damage(int): the level of damage the player has
-    healthstatus(int): the health status of the player with/without damage
-    
-    Returns:
-    a string identifying the health level
-    
-    """
-
-    if healthstatus == 100:
-        return "Perfect health!"
-    elif healthstatus - damage >= 80:
-        return "Great health!"
-    elif healthstatus - damage >= 70:
-        return "Decent Health"
-    elif healthstatus - damage >= 50:
-        return "Average health"
-    elif healthstatus - damage >= 30:
-        return "Low health"
-    elif healthstatus - damage >= 20:
-        return "Emergency health"
-    
-def computerHealth(damage, healthstatus):
-    """Looks at the computer's health status and how much damage they have taken. Computer starts at 100
-    
-    Attributes:
-    damage(int): the level of damage the computer has
-    healthstatus(int): the health status of the computer with/without damage
-    
-    Returns:
-    a string identifying the health level
-    
-    """
-
-    if healthstatus == 100:
-        return "Perfect health!"
-    elif healthstatus - damage >= 80:
-        return "Great health!"
-    elif healthstatus - damage >= 70:
-        return "Decent Health"
-    elif healthstatus - damage >= 50:
-        return "Average health"
-    elif healthstatus - damage >= 30:
-        return "Low health"
-    elif healthstatus - damage >= 20:
-        return "Emergency health"
-    elif healthstatus - damage == 0:
-        return "No health"
-
-
-def winner(playerHealth, computerHealth):
-    """Returns the winner of the game based on health.
-    Returns: 
-        Returns a string stating that computer won. 
-        Returns a string stating that player won. 
-    """
-    if playerHealth == 0:
-        if computerHealth > 0:
-            return "Computer won!"
-    if computerHealth == 0:
-        if playerHealth > 0:
-            return "Player won!"
-
-def monster():
-    """An attack by a monster
-    
-    Returns:
-        damage (int): the damage that has been recieved by the monster
-    """
-    m_damage = random.randint(5,50)
-    return m_damage
-'''
-
 class HumanPlayer:
     def __init__(self, name, options):
         self.name = name
         self.options = options
         self.health = 100
+    
+    def __str__(self):
+        """
+        prints the players stats after saying the player won the game. 
+        """
+        return (f"\t name: {self.name}\n\t health: {self.health}")  #magic method
         
     def move(self):
         """Asks the human player to make their next move.
@@ -101,10 +29,9 @@ class ComputerPlayer(HumanPlayer):
         
 class HorrorGame:
     def __init__(self, human_name, computer_name):
-        self.human_player = HumanPlayer(human_name, ["attack", "defend", "tape"])
-        self.computer_player = ComputerPlayer(computer_name, ["attack", "defend", "tape"])
+        self.human_player = HumanPlayer(name=human_name, options = ["attack", "defend", "tape"])  #keyword argument
+        self.computer_player = ComputerPlayer(name = computer_name, options= ["attack", "defend", "tape"])
         self.level = 1
-        self.opponent_health = 100
         self.game_over = False  # controls game loop
 
     def run(self):
@@ -144,18 +71,24 @@ class HorrorGame:
 
     def winner(self):
         if self.human_player.health <= 0:
-            print(f"Game Over! {self.computer_player.name} wins! {self.human_player.name} loses!")
+            print(f"Game Over! {self.computer_player.name} wins! {self.human_player.name} loses!")  #added the str method and print winner status also changed all opponent health to computer_player.health 
+            print("Winners stats:")
+            print(str(self.computer_player))
             return True
-        elif self.opponent_health <= 0:
+        elif self.computer_player.health <= 0:
             if self.level == 1:
                 self.level += 1
-                self.opponent_health = 100
+                self.computer_player.health = 100
                 print(f"{self.human_player.name} found the tape recorder and advances to Level 2!")
             elif self.level == 2:
                 print(f"Congratulations! {self.human_player.name} wins the game!")
+                print("Winners stats:")
+                print(str(self.human_player)) #human player stats
             return True
         elif self.computer_player.options[-1] == "tape" and random.random() < 0.05:
             print(f"{self.computer_player.name} found the tape recorder! {self.human_player.name} loses!")
+            print("Winners stats:")
+            print(str(self.computer_player))
             return True
         return False
 
@@ -179,11 +112,11 @@ class HorrorGame:
             print(f"{attacker.name} found the tape recorder!")
 
         print(f"{self.human_player.name}'s health: {self.human_player.health}")
-        print(f"{self.computer_player.name}'s health: {self.opponent_health}")
+        print(f"{self.computer_player.name}'s health: {self.computer_player.health}")
 
     def reset_game(self):
         self.level = 1
-        self.opponent_health = 100
+        self.computer_player.health = 100
         self.game_over = False
 
 if __name__ == "__main__":
@@ -194,7 +127,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.player and args.computer:
-        game = HorrorGame(args.player, args.computer)
+        game = HorrorGame(human_name=args.player, computer_name=args.computer)  #keyword argument
         game.run()
     else:
         print("Please provide names for both players using --player and --computer.")
