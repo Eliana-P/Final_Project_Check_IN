@@ -51,8 +51,8 @@ class ComputerPlayer(HumanPlayer):
         """Populates attributes.
         
         Args:
-            name (str): player name.
-            options (list of str): move options.
+            name (str): the player's name name.
+            options (list of str): the player's move options.
         """
         super().__init__(name, options) # this super should work
         
