@@ -74,8 +74,9 @@ class HorrorGame:
         self.game_over = False  # controls game loop
 
     def run(self):
-        print("Welcome to the Horror Survival Game!")
-        print("You find yourself in a dark room. Your goal is to survive the challenges and find the tape recorder.")
+        print("\n\nS A W  0\n\n")
+        print("Hello. Do you wanna play a game?")
+        print("You find yourself in a dark room. Your first goal is to survive the challenges and find the tape recorder.")
         
         while not self.game_over:
             if self.level == 1:
