@@ -79,6 +79,10 @@ class HorrorGame:
             self.run()
 
     def level_1(self):
+        #with open("saw0_story.txt", "r", encoding="utf-8") as f:
+            #for line in f:
+                #if "Level 1 Narration" in line:
+                    #print(line.strip())
         human_move = self.human_player.move()
         computer_move = random.choice(self.computer_player.options)
 
@@ -89,6 +93,10 @@ class HorrorGame:
 
 
     def level_2(self):
+        #with open("saw0_story.txt", "r", encoding="utf-8") as f:
+            #for line in f:
+                #if "Level 2 Narration" in line:
+                    #print(line.strip())
         monster_move = random.choice(self.computer_player.options)
         human_move = self.human_player.move()
 
