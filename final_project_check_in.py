@@ -75,24 +75,35 @@ class HorrorGame:
 
     def run(self):
         print("\n\nS A W  0\n\n")
-        print("Hello. Do you wanna play a game?")
-        print("You find yourself in a dark room. Your first goal is to survive the challenges and find the tape recorder.")
+        print("You find yourself in a dark room. Your goal is to survive the challenges and find the tape recorder.")
         
+        
+        narration1 = input("Would you like to read the narration before the game commences? [y/n]: ")
+        if narration1.lower() == "y" or narration1.lower() == "yes":
+            with open("saw0_l1_story.txt", "r", encoding="utf-8") as f:
+                for line in f:
+                    print(line.strip())
         while not self.game_over:
             if self.level == 1:
                 self.level_1()
             elif self.level == 2:
+                '''
+                narration2 = input("Would you like to read the narration before the game commences? [y/n]: ")
+                if narration2.lower() == "y":
+                    with open("saw0_l2_story.txt", "r", encoding="utf-8") as f:
+                        for line in f:
+                            print(line.strip())
+                '''
                 self.level_2()
+            if self.level == 2 and not self.game_over:
+                break
 
         play_again = input("Would you like to play again? [y/n]: ")
-        if play_again.lower() == "y":
+        if play_again.lower() == "y" or play_again.lower() == "yes":
             self.reset_game()
             self.run()
 
     def level_1(self):
-        with open("saw0_l1_story.txt", "r", encoding="utf-8") as f:
-            for line in f:
-                    print(line.strip())
         human_move = self.human_player.move()
         computer_move = random.choice(self.computer_player.options)
 
@@ -103,11 +114,9 @@ class HorrorGame:
 
 
     def level_2(self):
-        with open("saw0_l2_story.txt", "r", encoding="utf-8") as f:
-            for line in f:
-                    print(line.strip())
-        monster_move = random.choice(["attack", "defend", "tape"])
+
         human_move = self.human_player.move()
+        monster_move = random.choice(["attack", "defend", "tape"])
 
         self.handle_move(self.human_player, human_move, self.computer_player, monster_move)
         self.handle_move(self.computer_player, monster_move, self.human_player, human_move)
@@ -123,11 +132,12 @@ class HorrorGame:
             print(str(self.computer_player))
             return True
         
-        elif self.computer_player.health <= 0:
+        elif self.computer_player.health <= 0 or (self.human_player.options[-1] == "tape" and random.random() < 0.10):
             if self.level == 1:
                 self.level += 1
                 self.computer_player.health = 100
                 print(f"{self.human_player.name} found the tape recorder and advances to Level 2!")
+
             
             elif self.level == 2:
                 print(f"Congratulations! {self.human_player.name} wins the game!")
@@ -181,18 +191,19 @@ class HorrorGame:
 
     def reset_game(self):
         self.level = 1
+        self.human_player.health = 100
         self.computer_player.health = 100
         self.game_over = False
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Horror Survival Game")
-    parser.add_argument("--player", type=str, help="Name of the human player")
-    parser.add_argument("--computer", type=str, help="Name of the computer player")
+    parser = argparse.ArgumentParser(description = "Horror Survival Game")
+    parser.add_argument("--player", type = str, help = "Name of the human player")
+    parser.add_argument("--computer", type = str, help = "Name of the computer player")
 
     args = parser.parse_args()
 
     if args.player and args.computer:
-        game = HorrorGame(human_name=args.player, computer_name=args.computer)  #keyword argument
+        game = HorrorGame(human_name = args.player, computer_name = args.computer)  #keyword argument
         game.run()
     else:
         print("Please provide names for both players using --player and --computer.")
