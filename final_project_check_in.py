@@ -2,7 +2,23 @@ import argparse
 import random
 
 class HumanPlayer:
+    """Represents a human player.
+    
+    Attributes:
+        name (str): player's name.
+        options (list of str): the player's move options.
+        health (int): player's current health.
+    """
     def __init__(self, name, options):
+        """Populates attributes.
+
+        Args:
+            name (str): player's name.
+            options (list of str): player's move options.
+            
+        Side effects:
+            Populates attributes.
+        """
         self.name = name
         self.options = options
         self.health = 100
@@ -19,12 +35,25 @@ class HumanPlayer:
         Raises:
             
         Returns:
-
+            player input (str): player's input to select their move. 
         """
         return input(f"{self.name}, select your next move: {self.options}: ")
 
 class ComputerPlayer(HumanPlayer):
+    """Subclass of HumanPlayer class. Represents a computer player.
+    
+    Attributes:
+        name (str): player's name.
+        options (list of str): the player's move options.
+        health (int): player's current health.
+    """
     def __init__(self, name, options):
+        """Populates attributes.
+        
+        Args:
+            name (str): player name.
+            options (list of str): move options.
+        """
         super().__init__(name, options) # this super should work
         
 class HorrorGame:
