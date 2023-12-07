@@ -38,7 +38,7 @@ class HumanPlayer:
             player input (str): player's input to select their move. 
         """
         while True:
-            user_input = input(f"{self.name}, select your next move: {self.options}: ")
+            user_input = input(f"\n{self.name}, select your next move: {self.options}: ")
             
             if user_input.lower() == "exit":
                 print("Exiting the game.")
@@ -78,10 +78,12 @@ class HorrorGame:
         print("You find yourself in a dark room. Your goal is to survive the challenges and find the tape recorder.")
         
         
-        narration1 = input("Would you like to read the narration before the game commences? [y/n]: ")
+        narration1 = input("\nWould you like to read the narration before the game commences? [y/n]: ")
         if narration1.lower() == "y" or narration1.lower() == "yes":
             with open("saw0_l1_story.txt", "r", encoding="utf-8") as f:
-                for line in f:
+                story = f.readlines()[1:]
+                print("\n")
+                for line in story:
                     print(line.strip())
         while not self.game_over:
             if self.level == 1:
@@ -158,7 +160,7 @@ class HorrorGame:
         damage = random.randint(10, 20)
 
         if attacker_move == "attack":
-            print(f"{attacker.name} attacked!")
+            print(f"\n{attacker.name} attacked!")
             if defender_move == "defend":
                 print(f"{defender.name} defended!")
             elif defender_move == "tape":
