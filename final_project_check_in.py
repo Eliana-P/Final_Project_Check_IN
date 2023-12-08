@@ -72,6 +72,7 @@ class HorrorGame:
         self.computer_player = ComputerPlayer(name = computer_name, options= ["attack", "defend", "tape"])
         self.level = 1
         self.game_over = False  # controls game loop
+        self.advanced_to_level_2 = False #controls level 2 lol
 
     def run(self):
         print("\n\nS A W  0\n\n")
@@ -88,7 +89,9 @@ class HorrorGame:
         while not self.game_over:
             if self.level == 1:
                 self.level_1()
-            elif self.level == 2:
+                if not self.game_over and self.level == 2:
+                    print("welcome to level 2!")
+                    self.level_2()
                 '''
                 narration2 = input("Would you like to read the narration before the game commences? [y/n]: ")
                 if narration2.lower() == "y":
@@ -96,58 +99,67 @@ class HorrorGame:
                         for line in f:
                             print(line.strip())
                 '''
-                self.level_2()
-            if self.level == 2 and not self.game_over:
-                break
-
+        if not self.advanced_to_level_2:
+            play_again = input("Would you like to play again? [y/n]: ")
+            if play_again.lower() == "y" or play_again.lower() == "yes":
+                self.reset_game()
+                self.run()
+        '''
         play_again = input("Would you like to play again? [y/n]: ")
         if play_again.lower() == "y" or play_again.lower() == "yes":
             self.reset_game()
             self.run()
-
+        '''
     def level_1(self):
         human_move = self.human_player.move()
         computer_move = random.choice(self.computer_player.options)
 
         self.handle_move(self.human_player, human_move, self.computer_player, computer_move)
-        #self.handle_move(self.computer_player, computer_move, self.human_player, human_move)
 
-        self.game_over = True if self.winner() else False
+        if self.winner() == f"{self.human_player.name}" and self.level == 1:
+            self.level += 1
+            self.human_player.health = 100
+            self.computer_player.health = 100
+            print(f"{self.human_player.name} found the tape recorder and advances to Level 2!")
+            self.advanced_to_level_2 = True
 
+            # ends the function because it returns none
+            return None
+
+        # computer's move only if the game is not over
+        if not self.game_over and self.level == 2:
+            self.level_2()
 
     def level_2(self):
-
         human_move = self.human_player.move()
         monster_move = random.choice(["attack", "defend", "tape"])
 
-        self.handle_move(self.human_player, human_move, self.computer_player, monster_move)
-        self.handle_move(self.computer_player, monster_move, self.human_player, human_move)
+        pighead_name = "Pighead"
+        pighead = ComputerPlayer(name = pighead_name, options = ["attack", "defend", "tape"])
+
+        self.handle_move(self.human_player, human_move, pighead, monster_move)
+        #self.handle_move(self.computer_player, monster_move, self.human_player, human_move)
 
         self.game_over = True if self.winner() else False
 
-
     def winner(self):
-        
         if self.human_player.health <= 0:
             print(f"Game Over! {self.computer_player.name} wins! {self.human_player.name} loses!")  
             print("Winners stats:")
             print(str(self.computer_player))
             return True
         
-        elif self.computer_player.health <= 0 or (self.human_player.options[-1] == "tape" and random.random() < 0.10):
-            if self.level == 1:
-                self.level += 1
-                self.computer_player.health = 100
-                print(f"{self.human_player.name} found the tape recorder and advances to Level 2!")
+        elif self.human_player.options[-1] == "tape" and random.random() < 0.10:
+            print(f"{self.human_player.name} found the tape recorder and advances to Level 2!")
+            self.level += 1
+            self.computer_player.health = 100
 
-            
-            elif self.level == 2:
-                print(f"Congratulations! {self.human_player.name} wins the game!")
-                print("Winners stats:")
-                print(str(self.human_player)) #human player stats
-            
+        elif self.computer_player.health <= 0:
+            print(f"Congratulations! {self.human_player.name} wins the game!")
+            print("Winners stats:")
+            print(str(self.human_player))  # human player stats
             return True
-        #random.random is like randint but with floats!
+
         elif self.computer_player.options[-1] == "tape" and random.random() < 0.05:
             print(f"{self.computer_player.name} found the tape recorder! {self.human_player.name} loses!")
             print("Winners stats:")
