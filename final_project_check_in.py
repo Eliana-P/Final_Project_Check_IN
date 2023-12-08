@@ -77,18 +77,19 @@ class HorrorGame:
     def run(self):
         print("\n\nS A W  0\n\n")
         print("You find yourself in a dark room. Your goal is to survive the challenges and find the tape recorder.")
-        
-        
+    
         narration1 = input("Would you like to read the narration before the game commences? [y/n]: ")
         if narration1.lower() == "y" or narration1.lower() == "yes":
             with open("saw0_l1_story.txt", "r", encoding="utf-8") as f:
                 for line in f:
                     print(line.strip())
+    
         while not self.game_over:
             if self.level == 1:
-                self.level_1()
+                # check if the level 1 is completed
+                if self.level_1():
+                    break
                 if not self.game_over and self.level == 2:
-                    print("welcome to level 2!")
                     self.level_2()
                 '''
                 narration2 = input("Would you like to read the narration before the game commences? [y/n]: ")
@@ -121,12 +122,15 @@ class HorrorGame:
             print(f"{self.human_player.name} found the tape recorder and advances to Level 2!")
             self.advanced_to_level_2 = True
 
-            # ends the function because it returns none
-            return None
+            # ends the function and breaks out of the loop
+            return True
 
         # computer's move only if the game is not over
         if not self.game_over and self.level == 2:
             self.level_2()
+
+        # return False if the game is not over or advanced to level 2
+        return False
 
     def level_2(self):
         human_move = self.human_player.move()
@@ -145,8 +149,9 @@ class HorrorGame:
             print(f"Game Over! {self.computer_player.name} wins! {self.human_player.name} loses!")  
             print("Winners stats:")
             print(str(self.computer_player))
+            self.game_over = True
             return True
-        
+
         elif self.human_player.options[-1] == "tape" and random.random() < 0.10:
             print(f"{self.human_player.name} found the tape recorder and advances to Level 2!")
             self.level += 1
@@ -156,14 +161,16 @@ class HorrorGame:
             print(f"Congratulations! {self.human_player.name} wins the game!")
             print("Winners stats:")
             print(str(self.human_player))  # human player stats
+            self.game_over = True
             return True
 
         elif self.computer_player.options[-1] == "tape" and random.random() < 0.05:
             print(f"{self.computer_player.name} found the tape recorder! {self.human_player.name} loses!")
             print("Winners stats:")
             print(str(self.computer_player))
+            self.game_over = True
             return True
-        
+
         return False
 
     def handle_move(self, attacker, attacker_move, defender, defender_move):
