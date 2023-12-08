@@ -79,12 +79,10 @@ class HorrorGame:
         print("You find yourself in a dark room. Your goal is to survive the challenges and find the tape recorder.")
         
         
-        narration1 = input("\nWould you like to read the narration before the game commences? [y/n]: ")
+        narration1 = input("Would you like to read the narration before the game commences? [y/n]: ")
         if narration1.lower() == "y" or narration1.lower() == "yes":
             with open("saw0_l1_story.txt", "r", encoding="utf-8") as f:
-                story = f.readlines()[1:]
-                print("\n")
-                for line in story:
+                for line in f:
                     print(line.strip())
         while not self.game_over:
             if self.level == 1:
