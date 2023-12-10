@@ -26,19 +26,16 @@ class HumanPlayer:
         self.move = move
         self.health = 100
     
+    
     def __str__(self):
         """
         prints the players stats after saying the player won the game. 
         """
         return (f"\t name: {self.name}\n\t health: {self.health}")  #magic method
         
-    def make_move(self):
-        """Asks the human player to make their next move.
         
-        Raises:
-            
-        Returns:
-            player input (str): player's input to select their move. 
+    def make_move(self):
+        """Asks the human player to make their next move. 
         
          Side effects:
             print (str): prints a string saying the user has exited the game.
@@ -56,6 +53,7 @@ class HumanPlayer:
         else:
             print("Invalid input - Please choose a valid move!")
 
+
 class ComputerPlayer(HumanPlayer):
     """Subclass of HumanPlayer class. Represents a computer player.
     
@@ -63,6 +61,7 @@ class ComputerPlayer(HumanPlayer):
         name (str): player's name.
         options (list of str): the player's move options.
         health (int): player's current health.
+        move (str): player's current move.
     """
     def __init__(self, name, options, move):
         """Populates attributes.
@@ -72,7 +71,7 @@ class ComputerPlayer(HumanPlayer):
             options (list of str): the player's move options.
             move (str): player's move.
         """
-        super().__init__(name, options, move) # this super should work
+        super().__init__(name, options, move) 
         
 class HorrorGame:
     def __init__(self, human_name, computer_name):
@@ -159,6 +158,8 @@ class HorrorGame:
 
     
     def weapon(self):
+        """Generates a weapon that the human player may find.
+        """
         luck = random.randint(1, 3)
         weapons = {1 : {"Machette" : 35},
                 2 : {"Rusty Pipe" : 25},
