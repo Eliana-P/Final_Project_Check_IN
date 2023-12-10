@@ -167,7 +167,7 @@ class HorrorGame:
             player_weapon = weapons[luck]
             for key, value in player_weapon.items():
                 self.item, self.w_damage = key, value
-        print(luck)
+
 
     def winner(self):
         if self.human_player.health <= 0 and self.computer_player.health > 0:
