@@ -81,7 +81,8 @@ class HorrorGame:
         self.level = 1
         self.game_over = False  # controls game loop
         self.advanced_to_level_2 = False #controls level 2 lol
-
+        self.weapon_status = False
+        
     def run(self):
         # Determines if user has already been asked to read narration for lv2
         narration2 = "empty"
@@ -94,9 +95,9 @@ class HorrorGame:
                 for line in f:
                     story = f.readlines()[0:]
                     print("\n")
-                for line in story:
-                    print(line.strip())
-    
+                    for line in story:
+                        print(line.strip())
+            
         while not self.game_over:
             if self.level == 1:
                 # check if the level 1 is completed
@@ -156,6 +157,18 @@ class HorrorGame:
         
         self.game_over = True if self.winner() else False
 
+    
+    def weapon(self):
+        luck = random.randint(1, 3)
+        weapons = {1 : {"Machette" : 35},
+                2 : {"Rusty Pipe" : 25},
+                3 : {"Knife" : 30}}
+        if luck in weapons.keys():
+            player_weapon = weapons[luck]
+            for key, value in player_weapon.items():
+                self.item, self.w_damage = key, value
+        print(luck)
+
     def winner(self):
         if self.human_player.health <= 0 and self.computer_player.health > 0:
             print(f"Game Over! {self.computer_player.name} wins! {self.human_player.name} loses!")  
@@ -186,20 +199,50 @@ class HorrorGame:
         
         return False
 
+
     def handle_move(self, attacker, defender, defender_move):
         damage = random.randint(10, 20)
-
-        if attacker.move == "attack":
+           
+        if attacker.move == "tape" and random.random() > .50:
+                self.weapon()
+                self.weapon_status = True
+                print(f"\n{attacker.name} found a {self.item} with {self.w_damage} damage while looking for the tape!")
+                if defender_move == "attack":
+                    print(f"{defender.name} attacked!")
+                    self.human_player.health -= damage
+                elif defender_move == "tape":
+                    print(f"{defender.name} was looking for the tape!")
+                elif defender_move == "defend":
+                    print(f"{defender.name} defended!")
+                             
+        elif attacker.move == "tape" and random.random() < .50:
+            print(f"\n{attacker.name} was looking for the tape!")
+            if defender_move == "attack":
+                print(f"{defender.name} attacked!")
+                self.human_player.health -= damage
+            elif defender_move == "tape":
+                print(f"\n{defender.name} was looking for the tape!")
+            elif defender_move == "defend":
+                print(f"\n{defender.name} defended!")
+        
+        elif attacker.move == "attack":
             print(f"\n{attacker.name} attacked!")
             if defender_move == "defend":
                 print(f"{defender.name} defended!")
             elif defender_move == "tape":
                 print(f"{defender.name} was looking for the tape!")
-                self.computer_player.health -= damage
+                if self.weapon_status == True:
+                    self.computer_player.health -= int(self.w_damage)
+                else:
+                    self.computer_player.health -= damage
             elif defender_move == "attack":
                 print(f"{defender.name} attacked!")
                 self.human_player.health -= damage
-                self.computer_player.health -= damage
+                if self.weapon_status == True:
+                    self.computer_player.health -= int(self.w_damage)
+                else:
+                    self.computer_player.health -= damage
+                    
         elif attacker.move == "defend":
             print(f"{attacker.name} defended!")
             if defender_move == "attack":
@@ -208,24 +251,16 @@ class HorrorGame:
                 print(f"{defender.name} was looking for the tape!")
             elif defender_move == "defend":
                 print(f"{defender.name} defended!")
-        elif attacker.move == "tape":
-            print(f"{attacker.name} was looking for the tape!")
-            if defender_move == "attack":
-                print(f"{defender.name} attacked!")
-                self.human_player.health -= damage
-            elif defender_move == "tape":
-                print(f"{defender.name} was looking for the tape!")
-            elif defender_move == "defend":
-                print(f"{defender.name} defended!")
-
         print(f"{self.human_player.name}'s health: {self.human_player.health}")
         print(f"{self.computer_player.name}'s health: {self.computer_player.health}")
-
+        
+    
     def reset_game(self):
         self.level = 1
         self.human_player.health = 100
         self.computer_player.health = 100
         self.game_over = False
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description = "Horror Survival Game")
