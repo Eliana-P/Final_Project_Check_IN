@@ -44,14 +44,15 @@ class HumanPlayer:
             print (str): prints a string saying the user has exited the game.
             print (str): prints string telling the user it was a invalid input and to choose a new move.
         """
-        user_input = input(f"\n{self.name}, select your next move: {self.options}: ")
+        user_input = input(f"\n{self.name}, select your next move: {self.options}. You can also select 'exit' to exit the game: ")
             
         if user_input.lower() == "exit":
             print("Exiting the game.")
             exit()
 
-        if user_input in self.options:
+        elif user_input.lower() in self.options:
             self.move = user_input
+            
         else:
             print("Invalid input - Please choose a valid move!")
 
@@ -82,31 +83,39 @@ class HorrorGame:
         self.advanced_to_level_2 = False #controls level 2 lol
 
     def run(self):
+        # Determines if user has already been asked to read narration for lv2
+        narration2 = "empty"
         print("\n\nS A W  0\n\n")
-        print("You find yourself in a dark room. Your goal is to survive the challenges and find the tape recorder.")
+        print("You find yourself in a dark room. Your goal is to survive the challenges and find the tape recorders.")
     
-        narration1 = input("Would you like to read the narration before the game commences? [y/n]: ")
+        narration1 = input("\nWould you like to read the narration before the game commences? [y/n]: ")
         if narration1.lower() == "y" or narration1.lower() == "yes":
             with open("saw0_l1_story.txt", "r", encoding="utf-8") as f:
                 for line in f:
+                    story = f.readlines()[0:]
+                    print("\n")
+                for line in story:
                     print(line.strip())
     
         while not self.game_over:
             if self.level == 1:
                 # check if the level 1 is completed
                 self.level_1()
-            if self.level == 2:
-                self.level_2()
-                    
-                
-                '''
+            # If the current level is 2 and the reader hasn't been asked to read the narration for level 2 yet
+            if self.level == 2 and narration2 == "empty":
                 narration2 = input("Would you like to read the narration before the game commences? [y/n]: ")
-                if narration2.lower() == "y":
+                if narration2.lower() == "y" or narration2.lower() == "yes":
                     with open("saw0_l2_story.txt", "r", encoding="utf-8") as f:
-                        for line in f:
+                        story = f.readlines()[1:]
+                        print("\n")
+                    for line in story:
                             print(line.strip())
-                '''
-        
+                    self.level_2()
+            # If the current level is 2 and the reader has already been asked to read narration 2
+            # Before, it kept asking the user before each move
+            elif self.level == 2 and narration2 != "empty":
+                self.level_2()
+                        
         if self.level != 2:
             play_again = input("Would you like to play again? [y/n]: ")
             if play_again.lower() == "y" or play_again.lower() == "yes":
@@ -135,11 +144,11 @@ class HorrorGame:
             pighead = ComputerPlayer(name = pighead_name, options = ["attack", "defend", "tape"], move="")
             self.computer_player = pighead
             return True
-            
+                
         # return False if the game is not over or advanced to level 2
         return False
 
-    def level_2(self):
+    def level_2(self):        
         self.human_player.make_move()
         monster_move = random.choice(["attack", "defend", "tape"])
 
@@ -148,19 +157,22 @@ class HorrorGame:
         self.game_over = True if self.winner() else False
 
     def winner(self):
-        if self.human_player.health <= 0:
+        if self.human_player.health <= 0 and self.computer_player.health > 0:
             print(f"Game Over! {self.computer_player.name} wins! {self.human_player.name} loses!")  
             print("Winners stats:")
             print(str(self.computer_player))
             self.game_over = True
             return True
         
-        elif self.computer_player.health <= 0:
+        elif self.computer_player.health <= 0 and self.human_player.health > 0:
             print(f"Congratulations! {self.human_player.name} wins the game! Advancing to level {self.level + 1}!")
             print("Winners stats:")
             print(str(self.human_player))  # human player stats
             return True
 
+        elif self.human_player.health <=0 and self.computer_player.health <=0:
+            print("Game over! Both players have died!")
+            
         elif self.human_player.move == "tape" and random.random() < 0.10:
             print(f"{self.human_player.name} found the tape recorder and advances to Level {self.level + 1}!")
             return True
@@ -171,7 +183,7 @@ class HorrorGame:
             print(str(self.computer_player))
             self.game_over = True
             return True
-
+        
         return False
 
     def handle_move(self, attacker, defender, defender_move):
