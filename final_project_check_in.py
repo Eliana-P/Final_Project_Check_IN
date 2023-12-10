@@ -1,30 +1,30 @@
 import argparse
 import random
 
-class HumanPlayer:
-    """Represents a human player.
+class HumanPlayer:        
+    """Represents a human player.  
     
-    Attributes:
-        name (str): player's name.
-        options (list of str): the player's move options.
-        health (int): player's current health.
-        move (str): player's current move
+    Attributes:  
+        name (str): player's name.  
+        options (list of str): the player's move options.  
+        health (int): player's current health.  
+        move (str): player's current move  
     """
-    def __init__(self, name, options, move):
-        """Populates attributes.
+    def __init__(self, name, options, move):  
+        """Populates attributes.  
 
-        Args:
-            name (str): player's name.
-            options (list of str): player's move options.
-            move (str): player's move.
+        Args:  
+            name (str): player's name.  
+            options (list of str): player's move options.  
+            move (str): player's move.  
             
-        Side effects:
-            Populates attributes.
-        """
-        self.name = name
-        self.options = options
-        self.move = move
-        self.health = 100
+        Side effects:  
+            Populates attributes.  
+        """  
+        self.name = name  
+        self.options = options  
+        self.move = move  
+        self.health = 100  
     
     
     def __str__(self):
@@ -34,44 +34,44 @@ class HumanPlayer:
         return (f"\t name: {self.name}\n\t health: {self.health}")  #magic method
         
         
-    def make_move(self):
-        """Asks the human player to make their next move. 
+    def make_move(self):  
+        """Asks the human player to make their next move.   
         
-         Side effects:
-            print (str): prints a string saying the user has exited the game.
-            print (str): prints string telling the user it was a invalid input and to choose a new move.
+         Side effects:  
+            print (str): prints a string saying the user has exited the game.  
+            print (str): prints string telling the user it was a invalid input and to choose a new move.  
         """
-        user_input = input(f"\n{self.name}, select your next move: {self.options}. You can also select 'exit' to exit the game: ")
+        user_input = input(f"\n{self.name}, select your next move: {self.options}. You can also select 'exit' to exit the game: ")  
             
-        if user_input.lower() == "exit":
-            print("Exiting the game.")
-            exit()
+        if user_input.lower() == "exit":  
+            print("Exiting the game.")  
+            exit()  
 
-        elif user_input.lower() in self.options:
-            self.move = user_input
+        elif user_input.lower() in self.options:  
+            self.move = user_input  
             
-        else:
-            print("Invalid input - Please choose a valid move!")
+        else:  
+            print("Invalid input - Please choose a valid move!")  
 
 
-class ComputerPlayer(HumanPlayer):
-    """Subclass of HumanPlayer class. Represents a computer player.
+class ComputerPlayer(HumanPlayer):  
+    """Subclass of HumanPlayer class. Represents a computer player.  
     
-    Attributes:
-        name (str): player's name.
-        options (list of str): the player's move options.
-        health (int): player's current health.
-        move (str): player's current move.
+    Attributes:  
+        name (str): player's name.  
+        options (list of str): the player's move options.  
+        health (int): player's current health.   
+        move (str): player's current move.  
     """
-    def __init__(self, name, options, move):
-        """Populates attributes.
+    def __init__(self, name, options, move):  
+        """Populates attributes.  
         
-        Args:
-            name (str): the player's name name.
-            options (list of str): the player's move options.
-            move (str): player's move.
+        Args:  
+            name (str): the player's name name.  
+            options (list of str): the player's move options.  
+            move (str): player's move.  
         """
-        super().__init__(name, options, move) 
+        super().__init__(name, options, move)   
         
 class HorrorGame:
     def __init__(self, human_name, computer_name):
@@ -157,17 +157,17 @@ class HorrorGame:
         self.game_over = True if self.winner() else False
 
     
-    def weapon(self):
-        """Generates a weapon that the human player may find.
-        """
-        luck = random.randint(1, 3)
-        weapons = {1 : {"Machette" : 35},
-                2 : {"Rusty Pipe" : 25},
-                3 : {"Knife" : 30}}
-        if luck in weapons.keys():
-            player_weapon = weapons[luck]
-            for key, value in player_weapon.items():
-                self.item, self.w_damage = key, value
+    def weapon(self):  
+        """Generates a weapon that the human player may find.  
+        """  
+        luck = random.randint(1, 3)  
+        weapons = {1 : {"Machette" : 35},  
+                2 : {"Rusty Pipe" : 25},  
+                3 : {"Knife" : 30}}  
+        if luck in weapons.keys():  
+            player_weapon = weapons[luck]  
+            for key, value in player_weapon.items():  
+                self.item, self.w_damage = key, value  
 
 
     def winner(self):
@@ -216,15 +216,15 @@ class HorrorGame:
                 elif defender_move == "defend":
                     print(f"{defender.name} defended!")
                              
-        elif attacker.move == "tape" and random.random() < .50:
+        elif attacker.move == "tape" and random.random() <= .50:
             print(f"\n{attacker.name} was looking for the tape!")
             if defender_move == "attack":
                 print(f"{defender.name} attacked!")
                 self.human_player.health -= damage
             elif defender_move == "tape":
-                print(f"\n{defender.name} was looking for the tape!")
+                print(f"{defender.name} was looking for the tape!")
             elif defender_move == "defend":
-                print(f"\n{defender.name} defended!")
+                print(f"{defender.name} defended!")
         
         elif attacker.move == "attack":
             print(f"\n{attacker.name} attacked!")
@@ -245,13 +245,14 @@ class HorrorGame:
                     self.computer_player.health -= damage
                     
         elif attacker.move == "defend":
-            print(f"{attacker.name} defended!")
+            print(f"\n{attacker.name} defended!")
             if defender_move == "attack":
                 print(f"{defender.name} attacked!")
             elif defender_move == "tape":
                 print(f"{defender.name} was looking for the tape!")
             elif defender_move == "defend":
                 print(f"{defender.name} defended!")
+                
         print(f"{self.human_player.name}'s health: {self.human_player.health}")
         print(f"{self.computer_player.name}'s health: {self.computer_player.health}")
         
