@@ -83,6 +83,10 @@ class HorrorGame:
     def __init__(self, human_name, computer_name):
         """Initializes attributes.
         Primary Author: Eliana
+
+        Args:
+            human_name(str): the human's name.
+            computer_name(str): the computer's name.
         """
         self.human_player = HumanPlayer(name=human_name, move="", options = ["attack", "defend", "tape"])  #keyword argument   
         self.computer_player = ComputerPlayer(name = computer_name, move="", options= ["attack", "defend", "tape"])   
@@ -210,7 +214,7 @@ class HorrorGame:
             Returns (bool): Returns True depending on winner status, false if nothing happens.
 
         Side effects:
-            Prints (str): prints string that explains status of the game.
+            Prints (str): prints string that explains final status of the game, or if it's advancing to another level.
         """
         if self.human_player.health <= 0 and self.computer_player.health > 0: 
             print(f"Game Over! {self.computer_player.name} wins! {self.human_player.name} loses!")    
