@@ -86,7 +86,15 @@ class HorrorGame:
         self.weapon_status = False
         
     def run(self): 
-        # Determines if user has already been asked to read narration for lv2 
+        """
+        Runs the narration, determines if user has already been asked to read narration for level 2
+        Primary Author: Laraib Leghari
+
+        Side effects:
+        print: prints the introduction
+        with open: opens the narration from the text file
+        
+        """ 
         narration2 = "empty" 
         print("\n\nS A W  0\n\n") 
         print("You find yourself in a dark room. Your goal is to survive the challenges and find the tape recorders.") 
