@@ -90,7 +90,7 @@ class HorrorGame:
         Runs the narration, determines if user has already been asked to read narration for level 2
         Primary Author: Laraib Leghari
 
-        Side effects:
+        Side Effects:
         print: prints the introduction
         with open: opens the narration from the text file
         
@@ -162,7 +162,17 @@ class HorrorGame:
         return False
 
 
-    def level_2(self):         
+    def level_2(self):
+        """
+        Level 2 of the game, the user makes a move, the computer responds a with random move, and the monster attacks
+        Primary Author: Laraib Leghari
+
+        Side Effects:
+        
+
+        
+        
+        """
         self.human_player.make_move() 
         monster_move = random.choice(["attack", "defend", "tape"]) 
 
