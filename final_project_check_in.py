@@ -12,7 +12,8 @@ class HumanPlayer:
     """
     def __init__(self, name, options, move):  
         """Populates attributes.  
-
+        Primary Author: Tiara
+        
         Args:  
             name (str): player's name.  
             options (list of str): player's move options.  
@@ -36,6 +37,7 @@ class HumanPlayer:
         
     def make_move(self):  
         """Asks the human player to make their next move.   
+        Primary Author: Tiara
         
          Side effects:  
             print (str): prints a string saying the user has exited the game.  
@@ -56,6 +58,7 @@ class HumanPlayer:
 
 class ComputerPlayer(HumanPlayer):  
     """Subclass of HumanPlayer class. Represents a computer player.  
+    Primary Author: Tiara
     
     Attributes:  
         name (str): player's name.  
@@ -162,6 +165,7 @@ class HorrorGame:
     
     def weapon(self):  
         """Generates a weapon that the human player may find.  
+        Primary Author: Tiara
         """  
         luck = random.randint(1, 3)  
         weapons = {1 : {"Machette" : 35},  
