@@ -121,13 +121,15 @@ class HorrorGame:
             if play_again.lower() == "y" or play_again.lower() == "yes":
                 self.reset_game()
                 self.run()
-        '''
-        play_again = input("Would you like to play again? [y/n]: ")
-        if play_again.lower() == "y" or play_again.lower() == "yes":
-            self.reset_game()
-            self.run()
-        '''
+
     def level_1(self):
+        """Level 1 of the game, user makes a move and computer responds a with random move
+        Primary author: Nithya
+        
+        Returns:
+            bool: it is True if the player goes to level 2, else it is False 
+        
+        """
         self.human_player.make_move()
         computer_move = random.choice(self.computer_player.options)
 
@@ -147,6 +149,7 @@ class HorrorGame:
                 
         # return False if the game is not over or advanced to level 2
         return False
+
 
     def level_2(self):        
         self.human_player.make_move()
@@ -202,6 +205,18 @@ class HorrorGame:
 
 
     def handle_move(self, attacker, defender, defender_move):
+        """The moves between the attacker and defender in the game, determines the outcome
+        Primary author: Nithya
+        
+        Args:
+            attacker (Player): The player that is making the move
+            defender (Player): the player that is getting attacked or is defending
+            defender_move (str): the defender's chosen move
+        
+        Side effects:
+            Updates health of the attacker and the defender
+            Prints the according information of the player's move
+        """
         damage = random.randint(10, 20)
            
         if attacker.move == "tape" and random.random() > .50:
@@ -256,13 +271,18 @@ class HorrorGame:
         print(f"{self.human_player.name}'s health: {self.human_player.health}")
         print(f"{self.computer_player.name}'s health: {self.computer_player.health}")
         
-    
     def reset_game(self):
+        """Resets the game to its original state
+        Primary author: Nithya
+        
+        Side effects:
+            Puts the game level back to 1, health go back to 100, and game over is False
+        """
+        
         self.level = 1
         self.human_player.health = 100
         self.computer_player.health = 100
         self.game_over = False
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description = "Horror Survival Game")
