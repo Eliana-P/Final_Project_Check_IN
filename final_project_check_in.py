@@ -85,20 +85,20 @@ class HorrorGame:
         self.advanced_to_level_2 = False #controls level 2 lol
         self.weapon_status = False
         
-    def run(self):
-        # Determines if user has already been asked to read narration for lv2
-        narration2 = "empty"
-        print("\n\nS A W  0\n\n")
-        print("You find yourself in a dark room. Your goal is to survive the challenges and find the tape recorders.")
+    def run(self): 
+        # Determines if user has already been asked to read narration for lv2 
+        narration2 = "empty" 
+        print("\n\nS A W  0\n\n") 
+        print("You find yourself in a dark room. Your goal is to survive the challenges and find the tape recorders.") 
     
-        narration1 = input("\nWould you like to read the narration before the game commences? [y/n]: ")
-        if narration1.lower() == "y" or narration1.lower() == "yes":
-            with open("saw0_l1_story.txt", "r", encoding="utf-8") as f:
-                for line in f:
-                    story = f.readlines()[0:]
-                    print("\n")
-                    for line in story:
-                        print(line.strip())
+        narration1 = input("\nWould you like to read the narration before the game commences? [y/n]: ") 
+        if narration1.lower() == "y" or narration1.lower() == "yes": 
+            with open("saw0_l1_story.txt", "r", encoding="utf-8") as f: 
+                for line in f: 
+                    story = f.readlines()[0:] 
+                    print("\n") 
+                    for line in story: 
+                        print(line.strip()) 
             
         while not self.game_over:
             if self.level == 1:
