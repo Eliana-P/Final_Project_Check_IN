@@ -29,8 +29,11 @@ class HumanPlayer:
     
     
     def __str__(self):
-        """
-        prints the players stats after saying the player won the game. 
+        """Returns the player stats after saying the player won the game.
+        Primary Author: Eliana
+
+        Returns: 
+            Returns (str): Returns the players stats. 
         """
         return (f"\t name: {self.name}\n\t health: {self.health}")  #magic method
         
@@ -78,12 +81,15 @@ class ComputerPlayer(HumanPlayer):
         
 class HorrorGame:
     def __init__(self, human_name, computer_name):
-        self.human_player = HumanPlayer(name=human_name, move="", options = ["attack", "defend", "tape"])  #keyword argument
-        self.computer_player = ComputerPlayer(name = computer_name, move="", options= ["attack", "defend", "tape"])
-        self.level = 1
-        self.game_over = False  # controls game loop
-        self.advanced_to_level_2 = False #controls level 2 lol
-        self.weapon_status = False
+        """Initializes attributes.
+        Primary Author: Eliana
+        """
+        self.human_player = HumanPlayer(name=human_name, move="", options = ["attack", "defend", "tape"])  #keyword argument   
+        self.computer_player = ComputerPlayer(name = computer_name, move="", options= ["attack", "defend", "tape"])   
+        self.level = 1    
+        self.game_over = False   
+        self.advanced_to_level_2 = False      
+        self.weapon_status = False   
         
     def run(self): 
         """
@@ -196,34 +202,43 @@ class HorrorGame:
 
 
     def winner(self):
-        if self.human_player.health <= 0 and self.computer_player.health > 0:
-            print(f"Game Over! {self.computer_player.name} wins! {self.human_player.name} loses!")  
-            print("Winners stats:")
-            print(str(self.computer_player))
-            self.game_over = True
-            return True
-        
-        elif self.computer_player.health <= 0 and self.human_player.health > 0:
-            print(f"Congratulations! {self.human_player.name} wins the game! Advancing to level {self.level + 1}!")
-            print("Winners stats:")
-            print(str(self.human_player))  # human player stats
-            return True
+        """Determines the winner of the game.
+        Primary Author: Eliana
 
-        elif self.human_player.health <=0 and self.computer_player.health <=0:
-            print("Game over! Both players have died!")
+        Returns: 
+            Returns (bool): Returns True depending on winner status, false if nothing happens.
+
+        Side effects:
+            Prints (str): prints string that explains status of the game.
+        """
+        if self.human_player.health <= 0 and self.computer_player.health > 0: 
+            print(f"Game Over! {self.computer_player.name} wins! {self.human_player.name} loses!")    
+            print("Winners stats:")    
+            print(str(self.computer_player))   
+            self.game_over = True    
+            return True    
+        
+        elif self.computer_player.health <= 0 and self.human_player.health > 0:   
+            print(f"Congratulations! {self.human_player.name} wins the game! Advancing to level {self.level + 1}!")   
+            print("Winners stats:")    
+            print(str(self.human_player))  # human player stats   
+            return True   
+
+        elif self.human_player.health <=0 and self.computer_player.health <=0:   
+            print("Game over! Both players have died!")  
             
-        elif self.human_player.move == "tape" and random.random() < 0.10:
-            print(f"{self.human_player.name} found the tape recorder and advances to Level {self.level + 1}!")
-            return True
+        elif self.human_player.move == "tape" and random.random() < 0.10:   
+            print(f"{self.human_player.name} found the tape recorder and advances to Level {self.level + 1}!")   
+            return True  
 
-        elif self.computer_player.move == "tape" and random.random() < 0.05:
-            print(f"{self.computer_player.name} found the tape recorder! {self.human_player.name} loses!")
-            print("Winners stats:")
-            print(str(self.computer_player))
-            self.game_over = True
-            return True
+        elif self.computer_player.move == "tape" and random.random() < 0.05:   
+            print(f"{self.computer_player.name} found the tape recorder! {self.human_player.name} loses!")   
+            print("Winners stats:")   
+            print(str(self.computer_player))   
+            self.game_over = True    
+            return True   
         
-        return False
+        return False   
 
 
     def handle_move(self, attacker, defender, defender_move):
