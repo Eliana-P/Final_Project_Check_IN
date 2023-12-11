@@ -91,8 +91,8 @@ class HorrorGame:
         self.advanced_to_level_2 = False      
         self.weapon_status = False   
         
-    def run(self): 
-        """
+    def run(self):
+         """
         Runs the narration, determines if user has already been asked to read narration for level 2
         Primary Author: Laraib Leghari
 
