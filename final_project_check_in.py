@@ -154,13 +154,13 @@ class HorrorGame:
         return False
 
 
-    def level_2(self):        
-        self.human_player.make_move()
-        monster_move = random.choice(["attack", "defend", "tape"])
+    def level_2(self):         
+        self.human_player.make_move() 
+        monster_move = random.choice(["attack", "defend", "tape"]) 
 
-        self.handle_move(self.human_player, self.computer_player, monster_move)
+        self.handle_move(self.human_player, self.computer_player, monster_move) 
         
-        self.game_over = True if self.winner() else False
+        self.game_over = True if self.winner() else False 
 
     
     def weapon(self):  
