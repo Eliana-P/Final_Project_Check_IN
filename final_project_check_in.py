@@ -91,7 +91,7 @@ class HorrorGame:
         self.advanced_to_level_2 = False      
         self.weapon_status = False   
         
-    def run(self):
+    def run(self):  
          """
         Runs the narration, determines if user has already been asked to read narration for level 2
         Primary Author: Laraib Leghari
@@ -102,43 +102,43 @@ class HorrorGame:
         with open: opens the narration from the text file
         
         """ 
-        narration2 = "empty" 
-        print("\n\nS A W  0\n\n") 
-        print("You find yourself in a dark room. Your goal is to survive the challenges and find the tape recorders.") 
+        narration2 = "empty"  
+        print("\n\nS A W  0\n\n")  
+        print("You find yourself in a dark room. Your goal is to survive the challenges and find the tape recorders.")  
     
-        narration1 = input("\nWould you like to read the narration before the game commences? [y/n]: ") 
-        if narration1.lower() == "y" or narration1.lower() == "yes": 
-            with open("saw0_l1_story.txt", "r", encoding="utf-8") as f: 
-                for line in f: 
-                    story = f.readlines()[0:] 
-                    print("\n") 
-                    for line in story: 
-                        print(line.strip()) 
+        narration1 = input("\nWould you like to read the narration before the game commences? [y/n]: ")  
+        if narration1.lower() == "y" or narration1.lower() == "yes":  
+            with open("saw0_l1_story.txt", "r", encoding="utf-8") as f:  
+                for line in f:  
+                    story = f.readlines()[0:]  
+                    print("\n")  
+                    for line in story:  
+                        print(line.strip())  
             
-        while not self.game_over:
-            if self.level == 1:
-                # check if the level 1 is completed
-                self.level_1()
-            # If the current level is 2 and the reader hasn't been asked to read the narration for level 2 yet
-            if self.level == 2 and narration2 == "empty":
-                narration2 = input("Would you like to read the narration before the game commences? [y/n]: ")
-                if narration2.lower() == "y" or narration2.lower() == "yes":
-                    with open("saw0_l2_story.txt", "r", encoding="utf-8") as f:
-                        story = f.readlines()[1:]
-                        print("\n")
-                    for line in story:
-                            print(line.strip())
-                    self.level_2()
-            # If the current level is 2 and the reader has already been asked to read narration 2
-            # Before, it kept asking the user before each move
-            elif self.level == 2 and narration2 != "empty":
-                self.level_2()
+        while not self.game_over: 
+            if self.level == 1: 
+                # check if the level 1 is completed 
+                self.level_1() 
+            # If the current level is 2 and the reader hasn't been asked to read the narration for level 2 yet 
+            if self.level == 2 and narration2 == "empty": 
+                narration2 = input("Would you like to read the narration before the game commences? [y/n]: ") 
+                if narration2.lower() == "y" or narration2.lower() == "yes": 
+                    with open("saw0_l2_story.txt", "r", encoding="utf-8") as f: 
+                        story = f.readlines()[1:] 
+                        print("\n") 
+                    for line in story: 
+                            print(line.strip()) 
+                    self.level_2() 
+            # If the current level is 2 and the reader has already been asked to read narration 2 
+            # Before, it kept asking the user before each move 
+            elif self.level == 2 and narration2 != "empty": 
+                self.level_2() 
                         
-        if self.level != 2:
-            play_again = input("Would you like to play again? [y/n]: ")
-            if play_again.lower() == "y" or play_again.lower() == "yes":
-                self.reset_game()
-                self.run()
+        if self.level != 2: 
+            play_again = input("Would you like to play again? [y/n]: ") 
+            if play_again.lower() == "y" or play_again.lower() == "yes": 
+                self.reset_game() 
+                self.run() 
 
     def level_1(self):
         """Level 1 of the game, user makes a move and computer responds a with random move
@@ -169,7 +169,7 @@ class HorrorGame:
         return False
 
 
-    def level_2(self):
+    def level_2(self): 
         """
         Level 2 of the game, the user makes a move, the computer responds a with random move, and the monster attacks
         Primary Author: Laraib Leghari
@@ -180,12 +180,12 @@ class HorrorGame:
         Whether or not the game is over and if there is a winner is determined
 
         """
-        self.human_player.make_move() 
-        monster_move = random.choice(["attack", "defend", "tape"]) 
+        self.human_player.make_move()  
+        monster_move = random.choice(["attack", "defend", "tape"])  
 
-        self.handle_move(self.human_player, self.computer_player, monster_move) 
+        self.handle_move(self.human_player, self.computer_player, monster_move)  
         
-        self.game_over = True if self.winner() else False 
+        self.game_over = True if self.winner() else False  
 
     
     def weapon(self):  
