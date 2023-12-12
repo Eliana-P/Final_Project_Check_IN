@@ -3,7 +3,7 @@ import random
 
 class HumanPlayer:        
     """Represents a human player.  
-    Primary Author: Tiara
+    Primary Author: Tiara Eltrevoog 
     
     Attributes:  
         name (str): player's name.  
@@ -13,7 +13,7 @@ class HumanPlayer:
     """
     def __init__(self, name, options, move):  
         """Populates attributes.  
-        Primary Author: Tiara
+        Primary Author: Tiara Eltrevoog
         
         Args:  
             name (str): player's name.  
@@ -41,7 +41,7 @@ class HumanPlayer:
         
     def make_move(self):  
         """Asks the human player to make their next move.   
-        Primary Author: Tiara
+        Primary Author: Tiara Eltrevoog
         
          Side effects:  
             print (str): prints a string saying the user has exited the game.  
@@ -62,7 +62,7 @@ class HumanPlayer:
 
 class ComputerPlayer(HumanPlayer):  
     """Subclass of HumanPlayer class. Represents a computer player.  
-    Primary Author: Tiara
+    Primary Author: Tiara Eltrevoog
     
     Attributes:  
         name (str): player's name.  
@@ -72,7 +72,7 @@ class ComputerPlayer(HumanPlayer):
     """
     def __init__(self, name, options, move):  
         """Populates attributes.  
-        Primary Author: Tiara
+        Primary Author: Tiara Eltrevoog
         
         Args:  
             name (str): the player's name name.  
@@ -191,7 +191,7 @@ class HorrorGame:
     
     def weapon(self):  
         """Generates a weapon that the human player may find.  
-        Primary Author: Tiara
+        Primary Author: Tiara Eltrevoog 
         """  
         luck = random.randint(1, 3)  
         weapons = {1 : {"Machette" : 35},  
