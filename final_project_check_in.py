@@ -102,8 +102,7 @@ class HorrorGame:
         Side effects:
             print (str): prints the format of SAW 0 
             print (str): prints the introduction
-            with open: opens the narration from the text file
-        
+            with open: opens the narration from the text file 
         """ 
         narration2 = "empty"  
         print("\n\nS A W  0\n\n")  
@@ -148,8 +147,7 @@ class HorrorGame:
         Primary author: Nithya
         
         Returns:
-            bool: it is True if the player goes to level 2, else it is False 
-        
+            bool: it is True if the player goes to level 2, else it is False         
         """
         self.human_player.make_move()
         computer_move = random.choice(self.computer_player.options)
