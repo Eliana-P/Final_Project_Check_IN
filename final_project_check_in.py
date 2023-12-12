@@ -180,7 +180,6 @@ class HorrorGame:
         The human player makes a move with self.human_player.make_move(): 
         A move is chosen at random with random.choice()
         Whether or not the game is over and if there is a winner is determined
-
         """
         self.human_player.make_move()  
         monster_move = random.choice(["attack", "defend", "tape"])  
