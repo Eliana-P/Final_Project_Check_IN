@@ -208,7 +208,7 @@ class HorrorGame:
         Primary Author: Eliana
 
         Returns: 
-            Returns (bool): Returns True depending on winner status, false if nothing happens.
+            Returns (bool): True if there is a winner, both players have died, a player found a tape, or the game advances to another level, otherwise its False.
 
         Side effects:
             Prints (str): prints string that explains final status of the game, or if it's advancing to another level.
