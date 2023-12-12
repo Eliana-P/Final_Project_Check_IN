@@ -99,7 +99,7 @@ class HorrorGame:
         """Runs the narration, determines if user has already been asked to read narration for level 2
         Primary Author: Laraib Leghari
 
-        Side Effects:
+        Side effects:
         print (str): prints the format of SAW 0 
         print (str): prints the introduction
         with open: opens the narration from the text file
@@ -176,7 +176,7 @@ class HorrorGame:
         """Level 2 of the game, the user makes a move, the computer responds a with random move, and the monster attacks
         Primary Author: Laraib Leghari
 
-        Side Effects:
+        Side effects:
         The human player makes a move with self.human_player.make_move(): 
         A move is chosen at random with random.choice()
         Whether or not the game is over and if there is a winner is determined
