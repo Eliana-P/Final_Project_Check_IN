@@ -36,7 +36,7 @@ class HumanPlayer:
         Returns: 
             Returns (str): Returns the players stats. 
         """
-        return (f"\t name: {self.name}\n\t health: {self.health}")  #magic method
+        return (f"\t name: {self.name}\n\t health: {self.health}") 
         
         
     def make_move(self):  
@@ -90,7 +90,7 @@ class HorrorGame:
             human_name(str): the human's name.
             computer_name(str): the computer's name.
         """
-        self.human_player = HumanPlayer(name=human_name, move="", options = ["attack", "defend", "tape"])  #keyword argument   
+        self.human_player = HumanPlayer(name=human_name, move="", options = ["attack", "defend", "tape"])     
         self.computer_player = ComputerPlayer(name = computer_name, move="", options= ["attack", "defend", "tape"])   
         self.level = 1    
         self.game_over = False   
@@ -223,7 +223,7 @@ class HorrorGame:
         elif self.computer_player.health <= 0 and self.human_player.health > 0:   
             print(f"Congratulations! {self.human_player.name} wins the game! Advancing to level {self.level + 1}!")   
             print("Winners stats:")    
-            print(str(self.human_player))  # human player stats   
+            print(str(self.human_player))   
             return True   
 
         elif self.human_player.health <=0 and self.computer_player.health <=0:   
@@ -331,7 +331,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.player and args.computer:
-        game = HorrorGame(human_name = args.player, computer_name = args.computer)  #keyword argument
+        game = HorrorGame(human_name = args.player, computer_name = args.computer)  
         game.run()
     else:
         print("Please provide names for both players using --player and --computer.")
