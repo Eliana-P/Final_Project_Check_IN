@@ -3,6 +3,7 @@ import random
 
 class HumanPlayer:        
     """Represents a human player.  
+    Primary Author: Tiara
     
     Attributes:  
         name (str): player's name.  
@@ -71,6 +72,7 @@ class ComputerPlayer(HumanPlayer):
     """
     def __init__(self, name, options, move):  
         """Populates attributes.  
+        Primary Author: Tiara
         
         Args:  
             name (str): the player's name name.  
