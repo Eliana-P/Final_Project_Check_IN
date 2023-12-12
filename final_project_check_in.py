@@ -96,8 +96,7 @@ class HorrorGame:
         self.weapon_status = False   
         
     def run(self):  
-         """
-        Runs the narration, determines if user has already been asked to read narration for level 2
+        """Runs the narration, determines if user has already been asked to read narration for level 2
         Primary Author: Laraib Leghari
 
         Side Effects:
@@ -174,8 +173,7 @@ class HorrorGame:
 
 
     def level_2(self): 
-        """
-        Level 2 of the game, the user makes a move, the computer responds a with random move, and the monster attacks
+        """Level 2 of the game, the user makes a move, the computer responds a with random move, and the monster attacks
         Primary Author: Laraib Leghari
 
         Side Effects:
